@@ -32,7 +32,7 @@ The central (main) device is known as the GATT Client (the phone/tablet), which 
 
 ## Server Application
 
-Server documentation is here: [WPA Supplicant Server](https://github.com/samedayrules/wpable_server)
+Server documentation is located here: [WPA BLE Supplicant Server](https://github.com/samedayrules/wpable_server)
 
 ## Client Application
 
