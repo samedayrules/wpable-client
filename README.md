@@ -36,11 +36,19 @@ Server documentation is located here: [WPA BLE Supplicant Server](https://github
 
 ## Client Application
 
-The client software uses the [SimpleBLE library](https://simpleble.readthedocs.io/en/latest/index.html) as a cross-platform solution. General build instructions are [here](https://simpleble.readthedocs.io/en/latest/simpleble/usage.html), but they are not complete. The library source files can be downloaded from GitHub [here](https://github.com/OpenBluetoothToolbox/SimpleBLE).
+The client application is intended to be available on various platforms (e.g., Windows, Apple iOS, Android OS). Currently, only the Windows version of the client is available.
+
+The client software uses the [SimpleBLE library](https://simpleble.readthedocs.io/en/latest/index.html) as a cross-platform solution. General build instructions for the SimpleBLE library are [here](https://simpleble.readthedocs.io/en/latest/simpleble/usage.html), but they are not complete. The library source files can be downloaded from GitHub [here](https://github.com/OpenBluetoothToolbox/SimpleBLE).
+
+### Windows 10
+
+The client application is available on the [Microsoft Windows App Store](https://apps.microsoft.com/store/apps). Search for the title **Connect My Pi To WiFi**.
 
 The client was developed under Microsoft Visual Studio Community 2022 (64-bit) - Current Version 17.4.3 as a "Project for a single page C++/WinRT Universal Windows Platform (UWP) app with no predefined layout".
 
-### Windows 10
+If you choose to build the application from source, then the following sections apply.
+
+#### SimpleBLE Library
 
 The SimpleBle library requires:
 
@@ -72,7 +80,7 @@ The `install` target does not copy the libraries to the intended directory, so y
 
 `C:\SimpleBLE\simpleble\build> copy lib\Release\*.lib C:\"Program Files (x86)"\simpleble\lib\Release\*.lib`
 
-### In Microsoft Visual Studio:
+#### In Microsoft Visual Studio:
 
 1. Add the include directory for the SimpleBLE library:
 
