@@ -3,7 +3,7 @@
   <Identity
     Name="57268SameDayRules.ConnectMyPiToWiFi"
     Publisher="CN=4DE14C69-A9C4-46C1-892E-F06B9BCA13BF"
-    Version="1.0.17.0" />
+    Version="1.0.18.0" />
   <mp:PhoneIdentity PhoneProductId="ec06460c-4d10-4f68-b679-efe3bb267491" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
   <Properties>
     <DisplayName>Connect My Pi To WiFi</DisplayName>
