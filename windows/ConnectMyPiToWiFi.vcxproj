@@ -256,9 +256,6 @@
     <None Include="ConnectMyPiToWiFi_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="PropertySheet.props" />
-    <Text Include="README.md">
-      <DeploymentContent>false</DeploymentContent>
-    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />

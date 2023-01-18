@@ -163,7 +163,7 @@
                     <Border Grid.Row="27" Background="White"/>
                     <!-- Row data -->
                     <TextBlock   Grid.Row="1"  Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="This program will connect your Raspberry Pi to your WiFi network. It uses the Bluetooth interface of the central device (e.g., laptop, tablet, phone) to communicate with the peripheral device (i.e., Raspberry Pi) in order to change the network settings of the peripheral's wireless adapter. For detailed instructions on using this program, see the following blog entry: ">
-                        <Hyperlink Foreground="Blue" NavigateUri="https://samedayrules.com">Connect Your Raspberry Pi to Your WiFi Network</Hyperlink>
+                        <Hyperlink Foreground="Blue" NavigateUri="https://samedayrules.com/connect-my-pi-to-wifi-client/">Connect My Pi To WiFi (client)</Hyperlink>
                     </TextBlock>
                     <TextBlock   Grid.Row="2"  Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 1: Determine Central Device Bluetooth Status"/>
                     <TextBlock   Grid.Row="3"  Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Determine whether or not Bluetooth is enabled on the central device. It must be enabled in order to continue. If it's disabled, then you'll need to enable it in your system settings and re-start this program."/>

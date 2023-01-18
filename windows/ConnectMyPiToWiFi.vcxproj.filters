@@ -215,7 +215,4 @@
     <None Include="ConnectMyPiToWiFi_TemporaryKey.pfx" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="README.md" />
-  </ItemGroup>
 </Project>

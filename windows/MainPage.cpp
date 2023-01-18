@@ -30,7 +30,6 @@ namespace winrt::ConnectMyPiToWiFi::implementation
         // Find available Bluetooth adapters
         adapters = SimpleBLE::Safe::Adapter::get_adapters();
         if (!adapters.has_value() || adapters->empty()) {
-            BTAdapterComboBox().Visibility(Visibility::Collapsed);
             OutputDebugStringA("No Bluetooth adapters found\n");
         }
         else {
