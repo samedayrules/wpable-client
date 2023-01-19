@@ -127,6 +127,7 @@ namespace winrt::ConnectMyPiToWiFi::implementation
 
         // UI WiFi input vars
         std::string wifiName = "";
+        std::string wifiCountry = "";
         std::string wifiSecurity = "";
         std::string peripheralDevice = "";
         std::string wifiPwd = "";
@@ -149,6 +150,20 @@ namespace winrt::ConnectMyPiToWiFi::implementation
         }
         else {
             BTDeviceRequired().Visibility(Visibility::Visible); // show error
+            validated = false;
+        }
+
+        // Get index of selected item (Select... is 0th index)
+        int wifiCountryIdx = BTWifiCountryComboBox().SelectedIndex();
+        if (wifiCountryIdx > 0) {
+            BTWifiCountryRequired().Visibility(Visibility::Collapsed); // clear error
+            wifiCountry = to_string(unbox_value<hstring>(BTWifiCountryComboBox().SelectedValue()));
+            OutputDebugStringA("WiFi country:");
+            OutputDebugStringA(wifiCountry.c_str());
+            OutputDebugStringA("\n");
+        }
+        else {
+            BTWifiCountryRequired().Visibility(Visibility::Visible); // show error
             validated = false;
         }
 
@@ -235,7 +250,7 @@ namespace winrt::ConnectMyPiToWiFi::implementation
 
                         // BT peripheral requires (WPA_SUPPLICANT) params to be JSON encoded
                         JsonObject wpaSupplicant;
-                        wpaSupplicant.SetNamedValue(wifiCountryKey, JsonValue::CreateStringValue(L"US"));
+                        wpaSupplicant.SetNamedValue(wifiCountryKey, JsonValue::CreateStringValue(to_hstring(wifiCountry)));
                         wpaSupplicant.SetNamedValue(wifiSsidKey, JsonValue::CreateStringValue(to_hstring(wifiName)));
                         wpaSupplicant.SetNamedValue(wifiScanSsidKey, JsonValue::CreateStringValue(to_hstring(L"1")));
                         wpaSupplicant.SetNamedValue(wifiPskKey, JsonValue::CreateStringValue(to_hstring(wifiPwd)));
@@ -349,6 +364,13 @@ void ConnectMyPiToWiFi::implementation::MainPage::BTDeviceComboBox_SelectionChan
     }
 }
 
+
+void ConnectMyPiToWiFi::implementation::MainPage::BTWifiCountryComboBox_SelectionChanged(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const&) {
+    int deviceIdx = BTWifiCountryComboBox().SelectedIndex();
+    if (deviceIdx > 0) {
+        BTWifiCountryRequired().Visibility(Visibility::Collapsed); // clear error
+    }
+}
 
 void ConnectMyPiToWiFi::implementation::MainPage::BTWifiSecurityModeComboBox_SelectionChanged(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const&)
 {

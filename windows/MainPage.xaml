@@ -61,12 +61,30 @@
             <Setter Property="BorderBrush" Value="Blue"/>
             <Setter Property="Margin" Value="5,10,10,10"/>
             <Setter Property="Padding" Value="3"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Foreground="Blue" Text="{Binding}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style x:Key="PlainPasswordBoxStyle" TargetType="PasswordBox" BasedOn="{StaticResource BasicPasswordBoxStyle}">
             <Setter Property="Foreground" Value="Blue"/>
             <Setter Property="BorderBrush" Value="Blue"/>
             <Setter Property="Margin" Value="5,10,10,10"/>
             <Setter Property="Padding" Value="3"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Foreground="Blue" Text="{Binding}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Page.Resources>
 
@@ -131,6 +149,8 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!-- Row background colors-->
                     <Border Grid.Row="0" Background="Gray"/>
@@ -157,51 +177,311 @@
                     <Border Grid.Row="21" Background="White"/>
                     <Border Grid.Row="22" Background="White"/>
                     <Border Grid.Row="23" Background="White"/>
-                    <Border Grid.Row="24" Background="LightGray"/>
+                    <Border Grid.Row="24" Background="White"/>
                     <Border Grid.Row="25" Background="White"/>
-                    <Border Grid.Row="26" Background="White"/>
+                    <Border Grid.Row="26" Background="LightGray"/>
                     <Border Grid.Row="27" Background="White"/>
+                    <Border Grid.Row="28" Background="White"/>
+                    <Border Grid.Row="29" Background="White"/>
                     <!-- Row data -->
                     <TextBlock   Grid.Row="1"  Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="This program will connect your Raspberry Pi to your WiFi network. It uses the Bluetooth interface of the central device (e.g., laptop, tablet, phone) to communicate with the peripheral device (i.e., Raspberry Pi) in order to change the network settings of the peripheral's wireless adapter. For detailed instructions on using this program, see the following blog entry: ">
                         <Hyperlink Foreground="Blue" NavigateUri="https://samedayrules.com/connect-my-pi-to-wifi-client/">Connect My Pi To WiFi (client)</Hyperlink>
                     </TextBlock>
-                    <TextBlock   Grid.Row="2"  Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 1: Determine Central Device Bluetooth Status"/>
-                    <TextBlock   Grid.Row="3"  Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Determine whether or not Bluetooth is enabled on the central device. It must be enabled in order to continue. If it's disabled, then you'll need to enable it in your system settings and re-start this program."/>
-                    <TextBlock   Grid.Row="4"  Grid.Column="0" Style="{StaticResource StatusMsgTextStyle}" x:Name="BTInterfaceStatusTextBox"/>
-                    <TextBlock   Grid.Row="5"  Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 2: Select Central Device Bluetooth Adapter"/>
-                    <TextBlock   Grid.Row="6"  Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Select the Bluetooth adapter on the central device that will communicate with the peripheral device. Some devices (e.g., desktop computers) may have more than one Bluetooth adapter, and you'll need to select the appropriate adapter. This is normally going to be the first (and perhaps only) Bluetooth adapter that appears in the list below."/>
-                    <ComboBox    Grid.Row="7"  Grid.Column="0" Style="{StaticResource PlainComboBoxStyle}" SelectedIndex="0" SelectionChanged="BTAdapterComboBox_SelectionChanged" x:Name="BTAdapterComboBox">
+                    <TextBlock Grid.Row="2"  Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 1: Determine Central Device Bluetooth Status"/>
+                    <TextBlock Grid.Row="3"  Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Determine whether or not Bluetooth is enabled on the central device. It must be enabled in order to continue. If it's disabled, then you'll need to enable it in your system settings and re-start this program."/>
+                    <TextBlock Grid.Row="4"  Grid.Column="0" Style="{StaticResource StatusMsgTextStyle}" x:Name="BTInterfaceStatusTextBox"/>
+                    <TextBlock Grid.Row="5"  Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 2: Select Central Device Bluetooth Adapter"/>
+                    <TextBlock Grid.Row="6"  Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Select the Bluetooth adapter on the central device that will communicate with the peripheral device. Some devices (e.g., desktop computers) may have more than one Bluetooth adapter, and you'll need to select the appropriate adapter. This is normally going to be the first (and perhaps only) Bluetooth adapter that appears in the list below."/>
+                    <ComboBox Grid.Row="7"  Grid.Column="0" Style="{StaticResource PlainComboBoxStyle}" Header="Bluetooth Adapter" SelectedIndex="0" SelectionChanged="BTAdapterComboBox_SelectionChanged" x:Name="BTAdapterComboBox">
                         <x:String>Select...</x:String>
                     </ComboBox>
-                    <TextBlock   Grid.Row="8"  Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please select a Bluetooth adapter" Visibility="Collapsed" x:Name="BTAdapterRequired"/>
-                    <TextBlock   Grid.Row="9"  Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 3: Scan for Bluetooth Peripheral Devices"/>
-                    <TextBlock   Grid.Row="10" Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Scan for Bluetooth peripheral devices (near you). The scan should take about 15 seconds, and will result in a list of Bluetooth peripheral devices, one of which should  be your Raspberry Pi. Select the button below to start the scan."/>
-                    <Button      Grid.Row="11" Grid.Column="0" Style="{StaticResource PlainButtonStyle}" Content="Scan for Bluetooth Devices" Click="ScanDevicesHandler" x:Name="BTScanForDevicesButton"/>
-                    <TextBlock   Grid.Row="12" Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 4: Select Bluetooth Peripheral Device"/>
-                    <TextBlock   Grid.Row="13" Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Select your Raspberry Pi from the list of available Bluetooth peripheral devices. Your Raspberry Pi should have responded to the scan from the previous step, so select it from the list below. If it's not in the list, try scanning again as you did in step 3 above."/>
-                    <ComboBox    Grid.Row="14" Grid.Column="0" Style="{StaticResource PlainComboBoxStyle}" SelectedIndex="0" SelectionChanged="BTDeviceComboBox_SelectionChanged" x:Name="BTDeviceComboBox" >
+                    <TextBlock Grid.Row="8"  Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please select a Bluetooth adapter" Visibility="Collapsed" x:Name="BTAdapterRequired"/>
+                    <TextBlock Grid.Row="9"  Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 3: Scan for Bluetooth Peripheral Devices"/>
+                    <TextBlock Grid.Row="10" Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Scan for Bluetooth peripheral devices (near you). The scan should take about 15 seconds, and will result in a list of Bluetooth peripheral devices, one of which should  be your Raspberry Pi. Select the button below to start the scan."/>
+                    <Button Grid.Row="11" Grid.Column="0" Style="{StaticResource PlainButtonStyle}" Content="Scan for Bluetooth Devices" Click="ScanDevicesHandler" x:Name="BTScanForDevicesButton"/>
+                    <TextBlock Grid.Row="12" Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 4: Select Bluetooth Peripheral Device"/>
+                    <TextBlock Grid.Row="13" Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Select your Raspberry Pi from the list of available Bluetooth peripheral devices. Your Raspberry Pi should have responded to the scan from the previous step, so select it from the list below. If it's not in the list, try scanning again as you did in step 3 above."/>
+                    <ComboBox Grid.Row="14" Grid.Column="0" Style="{StaticResource PlainComboBoxStyle}" Header="Bluetooth Device" SelectedIndex="0" SelectionChanged="BTDeviceComboBox_SelectionChanged" x:Name="BTDeviceComboBox">
                         <x:String>Select...</x:String>
                     </ComboBox>
-                    <TextBlock   Grid.Row="15" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please select a device" Visibility="Collapsed" x:Name="BTDeviceRequired" />
-                    <TextBlock   Grid.Row="16" Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 5: Enter WiFi Network Settings"/>
-                    <TextBlock   Grid.Row="17" Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Enter the settings for the WiFi network to which your Raspberry Pi will be connected. First enter the WiFi network name (SSID), then select the WiFi security mode, and finally enter the password for the WiFi network."/>
-                    <TextBox     Grid.Row="18" Grid.Column="0" Style="{StaticResource PlainTextBoxStyle}" HorizontalAlignment="Left" Width="250" Height="32" PlaceholderText="Network name" CharacterReceived="BTWifiNameTextBox_CharacterReceived" x:Name="BTWifiNameTextBox"/>
-                    <TextBlock   Grid.Row="19" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please eneter the WiFi name" Visibility="Collapsed" x:Name="BTWifiNameRequired"/>
-                    <ComboBox    Grid.Row="20" Grid.Column="0" Style="{StaticResource PlainComboBoxStyle}" SelectedIndex="0" SelectionChanged="BTWifiSecurityModeComboBox_SelectionChanged" x:Name="BTWifiSecurityModeComboBox">
+                    <TextBlock Grid.Row="15" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please select a device" Visibility="Collapsed" x:Name="BTDeviceRequired"/>
+                    <TextBlock Grid.Row="16" Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 5: Enter WiFi Network Settings"/>
+                    <TextBlock Grid.Row="17" Grid.Column="0" Style="{StaticResource ParagraphTextStyle}">
+                        Enter the settings for the WiFi network to which your Raspberry Pi will be connected. First select the country where the WiFi network is installed 
+                        <Hyperlink Foreground="Blue" NavigateUri="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">(two-letter country codes)</Hyperlink>.
+                        Next enter the WiFi network name (SSID), then select the WiFi security mode, and finally enter the password for the WiFi network.
+                    </TextBlock>
+                    <ComboBox Grid.Row="18" Grid.Column="0" Style="{StaticResource PlainComboBoxStyle}" Header="Country" SelectedIndex="0" SelectionChanged="BTWifiCountryComboBox_SelectionChanged" x:Name="BTWifiCountryComboBox">
+                        <x:String>Select...</x:String>
+                        <x:String>AD</x:String>
+                        <x:String>AE</x:String>
+                        <x:String>AF</x:String>
+                        <x:String>AG</x:String>
+                        <x:String>AI</x:String>
+                        <x:String>AL</x:String>
+                        <x:String>AM</x:String>
+                        <x:String>AO</x:String>
+                        <x:String>AQ</x:String>
+                        <x:String>AR</x:String>
+                        <x:String>AS</x:String>
+                        <x:String>AT</x:String>
+                        <x:String>AU</x:String>
+                        <x:String>AW</x:String>
+                        <x:String>AX</x:String>
+                        <x:String>AZ</x:String>
+                        <x:String>BA</x:String>
+                        <x:String>BB</x:String>
+                        <x:String>BD</x:String>
+                        <x:String>BE</x:String>
+                        <x:String>BF</x:String>
+                        <x:String>BG</x:String>
+                        <x:String>BH</x:String>
+                        <x:String>BI</x:String>
+                        <x:String>BJ</x:String>
+                        <x:String>BL</x:String>
+                        <x:String>BM</x:String>
+                        <x:String>BN</x:String>
+                        <x:String>BO</x:String>
+                        <x:String>BQ</x:String>
+                        <x:String>BR</x:String>
+                        <x:String>BS</x:String>
+                        <x:String>BT</x:String>
+                        <x:String>BV</x:String>
+                        <x:String>BW</x:String>
+                        <x:String>BY</x:String>
+                        <x:String>BZ</x:String>
+                        <x:String>CA</x:String>
+                        <x:String>CC</x:String>
+                        <x:String>CD</x:String>
+                        <x:String>CF</x:String>
+                        <x:String>CG</x:String>
+                        <x:String>CH</x:String>
+                        <x:String>CI</x:String>
+                        <x:String>CK</x:String>
+                        <x:String>CL</x:String>
+                        <x:String>CM</x:String>
+                        <x:String>CN</x:String>
+                        <x:String>CO</x:String>
+                        <x:String>CR</x:String>
+                        <x:String>CU</x:String>
+                        <x:String>CV</x:String>
+                        <x:String>CW</x:String>
+                        <x:String>CX</x:String>
+                        <x:String>CY</x:String>
+                        <x:String>CZ</x:String>
+                        <x:String>DE</x:String>
+                        <x:String>DJ</x:String>
+                        <x:String>DK</x:String>
+                        <x:String>DM</x:String>
+                        <x:String>DO</x:String>
+                        <x:String>DZ</x:String>
+                        <x:String>EC</x:String>
+                        <x:String>EE</x:String>
+                        <x:String>EG</x:String>
+                        <x:String>EH</x:String>
+                        <x:String>ER</x:String>
+                        <x:String>ES</x:String>
+                        <x:String>ET</x:String>
+                        <x:String>FI</x:String>
+                        <x:String>FJ</x:String>
+                        <x:String>FK</x:String>
+                        <x:String>FM</x:String>
+                        <x:String>FO</x:String>
+                        <x:String>FR</x:String>
+                        <x:String>GA</x:String>
+                        <x:String>GB</x:String>
+                        <x:String>GD</x:String>
+                        <x:String>GE</x:String>
+                        <x:String>GF</x:String>
+                        <x:String>GG</x:String>
+                        <x:String>GH</x:String>
+                        <x:String>GI</x:String>
+                        <x:String>GL</x:String>
+                        <x:String>GM</x:String>
+                        <x:String>GN</x:String>
+                        <x:String>GP</x:String>
+                        <x:String>GQ</x:String>
+                        <x:String>GR</x:String>
+                        <x:String>GS</x:String>
+                        <x:String>GT</x:String>
+                        <x:String>GU</x:String>
+                        <x:String>GW</x:String>
+                        <x:String>GY</x:String>
+                        <x:String>HK</x:String>
+                        <x:String>HM</x:String>
+                        <x:String>HN</x:String>
+                        <x:String>HR</x:String>
+                        <x:String>HT</x:String>
+                        <x:String>HU</x:String>
+                        <x:String>ID</x:String>
+                        <x:String>IE</x:String>
+                        <x:String>IL</x:String>
+                        <x:String>IM</x:String>
+                        <x:String>IN</x:String>
+                        <x:String>IO</x:String>
+                        <x:String>IQ</x:String>
+                        <x:String>IR</x:String>
+                        <x:String>IS</x:String>
+                        <x:String>IT</x:String>
+                        <x:String>JE</x:String>
+                        <x:String>JM</x:String>
+                        <x:String>JO</x:String>
+                        <x:String>JP</x:String>
+                        <x:String>KE</x:String>
+                        <x:String>KG</x:String>
+                        <x:String>KH</x:String>
+                        <x:String>KI</x:String>
+                        <x:String>KM</x:String>
+                        <x:String>KN</x:String>
+                        <x:String>KP</x:String>
+                        <x:String>KR</x:String>
+                        <x:String>KW</x:String>
+                        <x:String>KY</x:String>
+                        <x:String>KZ</x:String>
+                        <x:String>LA</x:String>
+                        <x:String>LB</x:String>
+                        <x:String>LC</x:String>
+                        <x:String>LI</x:String>
+                        <x:String>LK</x:String>
+                        <x:String>LR</x:String>
+                        <x:String>LS</x:String>
+                        <x:String>LT</x:String>
+                        <x:String>LU</x:String>
+                        <x:String>LV</x:String>
+                        <x:String>LY</x:String>
+                        <x:String>MA</x:String>
+                        <x:String>MC</x:String>
+                        <x:String>MD</x:String>
+                        <x:String>ME</x:String>
+                        <x:String>MF</x:String>
+                        <x:String>MG</x:String>
+                        <x:String>MH</x:String>
+                        <x:String>MK</x:String>
+                        <x:String>ML</x:String>
+                        <x:String>MM</x:String>
+                        <x:String>MN</x:String>
+                        <x:String>MO</x:String>
+                        <x:String>MP</x:String>
+                        <x:String>MQ</x:String>
+                        <x:String>MR</x:String>
+                        <x:String>MS</x:String>
+                        <x:String>MT</x:String>
+                        <x:String>MU</x:String>
+                        <x:String>MV</x:String>
+                        <x:String>MW</x:String>
+                        <x:String>MX</x:String>
+                        <x:String>MY</x:String>
+                        <x:String>MZ</x:String>
+                        <x:String>NA</x:String>
+                        <x:String>NC</x:String>
+                        <x:String>NE</x:String>
+                        <x:String>NF</x:String>
+                        <x:String>NG</x:String>
+                        <x:String>NI</x:String>
+                        <x:String>NL</x:String>
+                        <x:String>NO</x:String>
+                        <x:String>NP</x:String>
+                        <x:String>NR</x:String>
+                        <x:String>NU</x:String>
+                        <x:String>NZ</x:String>
+                        <x:String>OM</x:String>
+                        <x:String>PA</x:String>
+                        <x:String>PE</x:String>
+                        <x:String>PF</x:String>
+                        <x:String>PG</x:String>
+                        <x:String>PH</x:String>
+                        <x:String>PK</x:String>
+                        <x:String>PL</x:String>
+                        <x:String>PM</x:String>
+                        <x:String>PN</x:String>
+                        <x:String>PR</x:String>
+                        <x:String>PS</x:String>
+                        <x:String>PT</x:String>
+                        <x:String>PW</x:String>
+                        <x:String>PY</x:String>
+                        <x:String>QA</x:String>
+                        <x:String>RE</x:String>
+                        <x:String>RO</x:String>
+                        <x:String>RS</x:String>
+                        <x:String>RU</x:String>
+                        <x:String>RW</x:String>
+                        <x:String>SA</x:String>
+                        <x:String>SB</x:String>
+                        <x:String>SC</x:String>
+                        <x:String>SD</x:String>
+                        <x:String>SE</x:String>
+                        <x:String>SG</x:String>
+                        <x:String>SH</x:String>
+                        <x:String>SI</x:String>
+                        <x:String>SJ</x:String>
+                        <x:String>SK</x:String>
+                        <x:String>SL</x:String>
+                        <x:String>SM</x:String>
+                        <x:String>SN</x:String>
+                        <x:String>SO</x:String>
+                        <x:String>SR</x:String>
+                        <x:String>SS</x:String>
+                        <x:String>ST</x:String>
+                        <x:String>SV</x:String>
+                        <x:String>SX</x:String>
+                        <x:String>SY</x:String>
+                        <x:String>SZ</x:String>
+                        <x:String>TC</x:String>
+                        <x:String>TD</x:String>
+                        <x:String>TF</x:String>
+                        <x:String>TG</x:String>
+                        <x:String>TH</x:String>
+                        <x:String>TJ</x:String>
+                        <x:String>TK</x:String>
+                        <x:String>TL</x:String>
+                        <x:String>TM</x:String>
+                        <x:String>TN</x:String>
+                        <x:String>TO</x:String>
+                        <x:String>TR</x:String>
+                        <x:String>TT</x:String>
+                        <x:String>TV</x:String>
+                        <x:String>TW</x:String>
+                        <x:String>TZ</x:String>
+                        <x:String>UA</x:String>
+                        <x:String>UG</x:String>
+                        <x:String>UM</x:String>
+                        <x:String>US</x:String>
+                        <x:String>UY</x:String>
+                        <x:String>UZ</x:String>
+                        <x:String>VA</x:String>
+                        <x:String>VC</x:String>
+                        <x:String>VE</x:String>
+                        <x:String>VG</x:String>
+                        <x:String>VI</x:String>
+                        <x:String>VN</x:String>
+                        <x:String>VU</x:String>
+                        <x:String>WF</x:String>
+                        <x:String>WS</x:String>
+                        <x:String>YE</x:String>
+                        <x:String>YT</x:String>
+                        <x:String>ZA</x:String>
+                        <x:String>ZM</x:String>
+                        <x:String>ZW</x:String>
+                    </ComboBox>
+                    <TextBlock Grid.Row="19" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please select the WiFi country" Visibility="Collapsed" x:Name="BTWifiCountryRequired"/>
+                    <TextBox Grid.Row="20" Grid.Column="0" Style="{StaticResource PlainTextBoxStyle}" Header="Network Name" HorizontalAlignment="Left" CharacterReceived="BTWifiNameTextBox_CharacterReceived" x:Name="BTWifiNameTextBox"/>
+                    <TextBlock Grid.Row="21" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please eneter the WiFi name" Visibility="Collapsed" x:Name="BTWifiNameRequired"/>
+                    <ComboBox Grid.Row="22" Grid.Column="0" Style="{StaticResource PlainComboBoxStyle}" Header="Security Mode" SelectedIndex="0" SelectionChanged="BTWifiSecurityModeComboBox_SelectionChanged" x:Name="BTWifiSecurityModeComboBox">
                         <x:String>Select...</x:String>
                         <x:String>NONE</x:String>
                         <x:String>WPA-PSK</x:String>
                         <x:String>WPA-EAP</x:String>
                         <x:String>IEEE8021X</x:String>
+                        <x:String>Hello</x:String>
                     </ComboBox>
-                    <TextBlock   Grid.Row="21" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please select a WiFi security mode" Visibility="Collapsed" x:Name="BTWifiSecurityRequired"/>
-                    <PasswordBox Grid.Row="22" Grid.Column="0" Style="{StaticResource PlainPasswordBoxStyle}" HorizontalAlignment="Left" Width="250" Height="32" PlaceholderText="Password" CharacterReceived="BTWifiPasswordBox_CharacterReceived" x:Name="BTWifiPasswordBox"/>
-                    <TextBlock   Grid.Row="23" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please enter the WiFi password" Visibility="Collapsed" x:Name="BTWifiPwdRequired"/>
-                    <TextBlock   Grid.Row="24" Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 6: Apply WiFi Settings to Bluetooth Peripheral Device"/>
-                    <TextBlock   Grid.Row="25" Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Select the button below to apply the WiFi settings entered above to your Raspberry Pi's wireless adapter. This will modify the wireless adapter settings, and then re-start the network service on your Raspberry Pi so that it will then connect to the specified WiFi network. It may take a minute or two for your Raspberry Pi to connect to the WiFi network. Make sure that your WiFi router has been configured to allow your Raspberry Pi access to the WiFi network."/>
-                    <Button      Grid.Row="26" Grid.Column="0" Style="{StaticResource PlainButtonStyle}" Click="ApplyWifiHandler" x:Name="BTWifiApplyButton">Apply WiFi Settings</Button>
-                    <TextBlock   Grid.Row="27" Grid.Column="0" Style="{StaticResource StatusMsgTextStyle}" Visibility="Collapsed" x:Name="BTSuccessTextBox"/>
-                    <TextBlock   Grid.Row="27" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Visibility="Collapsed" x:Name="BTErrorTextBox"/>
+                    <TextBlock Grid.Row="23" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please select a WiFi security mode" Visibility="Collapsed" x:Name="BTWifiSecurityRequired"/>
+                    <PasswordBox Grid.Row="24" Grid.Column="0" Style="{StaticResource PlainPasswordBoxStyle}" Header="Password" HorizontalAlignment="Left" CharacterReceived="BTWifiPasswordBox_CharacterReceived" x:Name="BTWifiPasswordBox"/>
+                    <TextBlock Grid.Row="25" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please enter the WiFi password" Visibility="Collapsed" x:Name="BTWifiPwdRequired"/>
+                    <TextBlock Grid.Row="26" Grid.Column="0" Style="{StaticResource SectionTextStyle}" Text="Step 6: Apply WiFi Settings to Bluetooth Peripheral Device"/>
+                    <TextBlock Grid.Row="27" Grid.Column="0" Style="{StaticResource ParagraphTextStyle}" Text="Select the button below to apply the WiFi settings entered above to your Raspberry Pi's wireless adapter. This will modify the wireless adapter settings, and then re-start the network service on your Raspberry Pi so that it will then connect to the specified WiFi network. It may take a minute or two for your Raspberry Pi to connect to the WiFi network. Make sure that your WiFi router has been configured to allow your Raspberry Pi access to the WiFi network."/>
+                    <Button Grid.Row="28" Grid.Column="0" Style="{StaticResource PlainButtonStyle}" Click="ApplyWifiHandler" x:Name="BTWifiApplyButton">Apply WiFi Settings</Button>
+                    <TextBlock Grid.Row="29" Grid.Column="0" Style="{StaticResource StatusMsgTextStyle}" Visibility="Collapsed" x:Name="BTSuccessTextBox"/>
+                    <TextBlock Grid.Row="30" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Visibility="Collapsed" x:Name="BTErrorTextBox"/>
                 </Grid>
             </ScrollViewer>
 

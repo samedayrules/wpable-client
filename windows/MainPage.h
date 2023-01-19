@@ -15,6 +15,7 @@ namespace winrt::ConnectMyPiToWiFi::implementation
         void ApplyWifiHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void BTAdapterComboBox_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
         void BTDeviceComboBox_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
+        void BTWifiCountryComboBox_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
         void BTWifiSecurityModeComboBox_SelectionChanged(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs const& e);
         void BTWifiNameTextBox_CharacterReceived(Windows::UI::Xaml::UIElement const& sender, Windows::UI::Xaml::Input::CharacterReceivedRoutedEventArgs const& args);
         void BTWifiPasswordBox_CharacterReceived(Windows::UI::Xaml::UIElement const& sender, Windows::UI::Xaml::Input::CharacterReceivedRoutedEventArgs const& args);
