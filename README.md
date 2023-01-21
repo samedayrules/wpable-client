@@ -42,7 +42,7 @@ The client software uses the [SimpleBLE library](https://simpleble.readthedocs.i
 
 ### Windows 10
 
-The client application is available on the [Microsoft Windows App Store](https://apps.microsoft.com/store/apps). Search for the title **Connect My Pi To WiFi**.
+The client application is available on the [Microsoft Windows App Store](https://www.microsoft.com/store/apps/9PNCS683X3KR). Search for the title **Connect My Pi To WiFi**.
 
 The client was developed under Microsoft Visual Studio Community 2022 (64-bit) - Current Version 17.4.3 as a "Project for a single page C++/WinRT Universal Windows Platform (UWP) app with no predefined layout".
 
