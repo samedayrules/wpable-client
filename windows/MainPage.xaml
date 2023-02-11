@@ -472,7 +472,6 @@
                         <x:String>WPA-PSK</x:String>
                         <x:String>WPA-EAP</x:String>
                         <x:String>IEEE8021X</x:String>
-                        <x:String>Hello</x:String>
                     </ComboBox>
                     <TextBlock Grid.Row="23" Grid.Column="0" Style="{StaticResource ErrorMsgTextStyle}" Text="Please select a WiFi security mode" Visibility="Collapsed" x:Name="BTWifiSecurityRequired"/>
                     <PasswordBox Grid.Row="24" Grid.Column="0" Style="{StaticResource PlainPasswordBoxStyle}" Header="Password" HorizontalAlignment="Left" CharacterReceived="BTWifiPasswordBox_CharacterReceived" x:Name="BTWifiPasswordBox"/>
